@@ -119,7 +119,7 @@ pool的padding方式为 SAME，这样便可以保证SPP层之后得到同样维�
 
 > 在卷积神经网络中，感受野的定义是卷积神经网络每一层输出的特征图（feature map）上的像素点在原始图像上映射的区域大小。卷积神经网络CNN中，某一层输出结果中一个元素所对应的输入层的区域大小，被称作感受野receptive field。如图所示：
 
-img
+![image](https://github.com/ShaoQiBNU/SPPnet/blob/master/images/3.jpg)
 
 > CNN中输入输出影像的大小满足如下关系：
 ```
@@ -206,8 +206,9 @@ if __name__ == '__main__':
 ### 2. 感受野的特征映射
 
 > 通常，我们需要知道网络里面任意两个feature map之间的坐标映射关系（一般是中心点之间的映射），如下图，我们想得到map 3上的点p3映射回map 2所在的位置p2（橙色框的中心点），计算公式如下：
->
 > <a href="https://www.codecogs.com/eqnedit.php?latex=p_{i}&space;=&space;s_{i}\cdot&space;p_{i&plus;1}&space;&plus;\frac{k_{i}&space;-&space;1}{2}-&space;padding" target="_blank"><img src="https://latex.codecogs.com/svg.latex?p_{i}&space;=&space;s_{i}\cdot&space;p_{i&plus;1}&space;&plus;\frac{k_{i}&space;-&space;1}{2}-&space;padding" title="p_{i} = s_{i}\cdot p_{i+1} +\frac{k_{i} - 1}{2}- padding" /></a>
+
+![image](https://github.com/ShaoQiBNU/SPPnet/blob/master/images/3.jpg)
 
 > SPP net对上述公式进行了简化，令每一层的padding都为：<a href="https://www.codecogs.com/eqnedit.php?latex=padding&space;=&space;[\frac{k_{i}}{2}]" target="_blank"><img src="https://latex.codecogs.com/svg.latex?padding&space;=&space;[\frac{k_{i}}{2}]" title="padding = [\frac{k_{i}}{2}]" /></a>，则<a href="https://www.codecogs.com/eqnedit.php?latex=p_{i}&space;=&space;s_{i}\cdot&space;p_{i&plus;1}&space;&plus;&space;\frac{k_{i}-1}{2}&space;-&space;[\frac{k_{i}}{2}]" target="_blank"><img src="https://latex.codecogs.com/svg.latex?p_{i}&space;=&space;s_{i}\cdot&space;p_{i&plus;1}&space;&plus;&space;\frac{k_{i}-1}{2}&space;-&space;[\frac{k_{i}}{2}]" title="p_{i} = s_{i}\cdot p_{i+1} + \frac{k_{i}-1}{2} - [\frac{k_{i}}{2}]" /></a>
 
@@ -221,7 +222,7 @@ if __name__ == '__main__':
 
 > SPP net是将原始的ROI的左上角和右下角映射到feature map上的两个对应点， 有了feature map上的两对角点就确定了对应的 feature map 区域，如图所示：
 
-img
+![image](https://github.com/ShaoQiBNU/SPPnet/blob/master/images/4.jpg)
 
 > 左上角的点<a href="https://www.codecogs.com/eqnedit.php?latex=(x,y)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?(x,y)" title="(x,y)" /></a>映射到feature map上的<a href="https://www.codecogs.com/eqnedit.php?latex=({x}',{y}')" target="_blank"><img src="https://latex.codecogs.com/svg.latex?({x}',{y}')" title="({x}',{y}')" /></a>，根据2中的公式可以得到转换关系：<a href="https://www.codecogs.com/eqnedit.php?latex=(x,y)&space;=&space;(S{x}',S{y}')" target="_blank"><img src="https://latex.codecogs.com/svg.latex?(x,y)&space;=&space;(S{x}',S{y}')" title="(x,y) = (S{x}',S{y}')" /></a>。根据<a href="https://www.codecogs.com/eqnedit.php?latex=(x,y)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?(x,y)" title="(x,y)" /></a>求算<a href="https://www.codecogs.com/eqnedit.php?latex=({x}',{y}')" target="_blank"><img src="https://latex.codecogs.com/svg.latex?({x}',{y}')" title="({x}',{y}')" /></a>，则计算公式如下：<a href="https://www.codecogs.com/eqnedit.php?latex={x}'&space;=&space;[\frac{x}{S}]&plus;1" target="_blank"><img src="https://latex.codecogs.com/svg.latex?{x}'&space;=&space;[\frac{x}{S}]&plus;1" title="{x}' = [\frac{x}{S}]+1" /></a>，各个角点的计算公式最终确定如下：
 >
