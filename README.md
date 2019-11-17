@@ -75,7 +75,7 @@ pool的padding方式为 SAME，这样便可以保证SPP层之后得到同样维�
 
 ## (一) 数据预处理
 
-> 数据集采用是102类的鲜花数据集，链接为：http://www.robots.ox.ac.uk/%7Evgg/data/flowers/102/.， 数据格式为jpg，数据size不全都一样，因此首先对数据进行预处理。数据集里有setid.mat参数文件，此文件是一个字典数据，其中包含三个key：trnid，tstid，valid，tstid为训练集id，trnid为测试集id，valid为验证集id。将训练集中的影像全部做crop处理，裁剪成500 x 500大小的影像，然后对其做重采样，采样方式为最邻近插值，分别重采样成 400 x 400，300 x 300，250 x 250大小的影像，写成TFrecords格式存储到硬盘上。测试集影像单独取出，不做任何操作，写成TFrecords格式存储到硬盘上。代码如下：
+> 数据集采用是102类的鲜花数据集，链接为：http://www.robots.ox.ac.uk/%7Evgg/data/flowers/102/， 数据格式为jpg，数据size不全都一样，因此首先对数据进行预处理。数据集里有setid.mat参数文件，此文件是一个字典数据，其中包含三个key：trnid，tstid，valid，tstid为训练集id，trnid为测试集id，valid为验证集id。将训练集中的影像全部做crop处理，裁剪成500 x 500大小的影像，然后对其做重采样，采样方式为最邻近插值，分别重采样成 400 x 400，300 x 300，250 x 250大小的影像，写成TFrecords格式存储到硬盘上。测试集影像单独取出，不做任何操作，写成TFrecords格式存储到硬盘上。代码如下：
 
 ```python
 #!/usr/bin/env python3
